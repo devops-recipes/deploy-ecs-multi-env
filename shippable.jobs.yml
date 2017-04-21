@@ -51,6 +51,7 @@ jobs:
     flags:
       - deploy-ecs-multi-env
     steps:
+      - IN: deploy-ecs-multi-env-commonparams
       - IN: deploy-ecs-multi-env-image
 
   - name: deploy-ecs-multi-env-betadeploy
@@ -58,7 +59,7 @@ jobs:
     flags:
       - deploy-ecs-multi-env
     steps:
-      # - IN: deploy-ecs-multi-env-betaopts
+      - IN: deploy-ecs-multi-env-betaopts
       - IN: deploy-ecs-multi-env-betaparams
       - IN: deploy-ecs-multi-env-manifest-2
       - IN: deploy-ecs-multi-env-betacluster
@@ -68,8 +69,11 @@ jobs:
     flags:
       - deploy-ecs-multi-env
     steps:
-      # - IN: deploy-ecs-multi-env-prodopts
+      - IN: deploy-ecs-multi-env-prodopts
+        switch: off
       - IN: deploy-ecs-multi-env-prodparams
+        switch: off
       - IN: deploy-ecs-multi-env-betadeploy
         switch: off
       - IN: deploy-ecs-multi-env-prodcluster
+        switch: off
