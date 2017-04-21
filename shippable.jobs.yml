@@ -1,45 +1,45 @@
 jobs:
 
-  # ###################################
-  # # runCI job to update the image tag
-  # ###################################
-  # - name: deploy-ecs-multi-env_runCI
-  #   type: runCI
-  #   flags:
-  #     - deploy-ecs-multi-env
-  #   steps:
-  #     - OUT: deploy-ecs-multi-env-image
-  #
-  # ######################################
-  # # Two parallel environments
-  # ######################################
-  #
-  # - name: deploy-ecs-multi-env-manifest-1
-  #   type: manifest
-  #   flags:
-  #     - deploy-ecs-multi-env
-  #   steps:
-  #     - IN: deploy-ecs-multi-env-image
-  #
-  # - name: deploy-ecs-multi-env-bluedeploy
-  #   type: deploy
-  #   flags:
-  #     - deploy-ecs-multi-env
-  #   steps:
-  #     - IN: deploy-ecs-multi-env-blueparams
-  #     - IN: deploy-ecs-multi-env-manifest-1
-  #       switch: off
-  #     - IN: deploy-ecs-multi-env-maincluster
-  #
-  # - name: deploy-ecs-multi-env-greendeploy
-  #   type: deploy
-  #   flags:
-  #     - deploy-ecs-multi-env
-  #   steps:
-  #     - IN: deploy-ecs-multi-env-greenparams
-  #     - IN: deploy-ecs-multi-env-manifest-1
-  #       switch: off
-  #     - IN: deploy-ecs-multi-env-maincluster
+  ###################################
+  # runCI job to update the image tag
+  ###################################
+  - name: deploy-ecs-multi-env_runCI
+    type: runCI
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - OUT: deploy-ecs-multi-env-image
+
+  ######################################
+  # Two parallel environments
+  ######################################
+
+  - name: deploy-ecs-multi-env-manifest-1
+    type: manifest
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-image
+
+  - name: deploy-ecs-multi-env-bluedeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-blueparams
+      - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
+      - IN: deploy-ecs-multi-env-maincluster
+
+  - name: deploy-ecs-multi-env-greendeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-greenparams
+      - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
+      - IN: deploy-ecs-multi-env-maincluster
 
 
   ########################################
