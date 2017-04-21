@@ -20,7 +20,6 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       - IN: deploy-ecs-multi-env-image
-      - IN: deploy-ecs-multi-env-nginx
 
   - name: deploy-ecs-multi-env-bluedeploy
     type: deploy
