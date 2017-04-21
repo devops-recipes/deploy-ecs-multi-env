@@ -99,6 +99,7 @@ resources:
     version:
       params:
         ENVIRONMENT: "beta"
+        SLACK_CHANNEL: "beta"
 
   - name: deploy-ecs-multi-env-prodparams
     type: params
@@ -107,3 +108,4 @@ resources:
     version:
       params:
         ENVIRONMENT: "prod"
+        SLACK_CHANNEL: "prod"
