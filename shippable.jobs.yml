@@ -1,14 +1,14 @@
 jobs:
 
-  ###################################
-  # runCI job to update the image tag
-  ###################################
-  - name: deploy-ecs-multi-env_runCI
-    type: runCI
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      - OUT: deploy-ecs-multi-env-image
+  # ###################################
+  # # runCI job to update the image tag
+  # ###################################
+  # - name: deploy-ecs-multi-env_runCI
+  #   type: runCI
+  #   flags:
+  #     - deploy-ecs-multi-env
+  #   steps:
+  #     - OUT: deploy-ecs-multi-env-image
 
   ######################################
   # Two parallel environments
@@ -42,34 +42,34 @@ jobs:
       - IN: deploy-ecs-multi-env-maincluster
 
 
-  ########################################
-  # Two serial environments
-  ########################################
-
-  - name: deploy-ecs-multi-env-manifest-2
-    type: manifest
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      - IN: deploy-ecs-multi-env-image
-
-  - name: deploy-ecs-multi-env-betadeploy
-    type: deploy
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      # - IN: deploy-ecs-multi-env-betaopts
-      - IN: deploy-ecs-multi-env-betaparams
-      - IN: deploy-ecs-multi-env-manifest-2
-      - IN: deploy-ecs-multi-env-betacluster
-
-  - name: deploy-ecs-multi-env-proddeploy
-    type: deploy
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      # - IN: deploy-ecs-multi-env-prodopts
-      - IN: deploy-ecs-multi-env-prodparams
-      - IN: deploy-ecs-multi-env-betadeploy
-        switch: off
-      - IN: deploy-ecs-multi-env-prodcluster
+  # ########################################
+  # # Two serial environments
+  # ########################################
+  #
+  # - name: deploy-ecs-multi-env-manifest-2
+  #   type: manifest
+  #   flags:
+  #     - deploy-ecs-multi-env
+  #   steps:
+  #     - IN: deploy-ecs-multi-env-image
+  #
+  # - name: deploy-ecs-multi-env-betadeploy
+  #   type: deploy
+  #   flags:
+  #     - deploy-ecs-multi-env
+  #   steps:
+  #     # - IN: deploy-ecs-multi-env-betaopts
+  #     - IN: deploy-ecs-multi-env-betaparams
+  #     - IN: deploy-ecs-multi-env-manifest-2
+  #     - IN: deploy-ecs-multi-env-betacluster
+  #
+  # - name: deploy-ecs-multi-env-proddeploy
+  #   type: deploy
+  #   flags:
+  #     - deploy-ecs-multi-env
+  #   steps:
+  #     # - IN: deploy-ecs-multi-env-prodopts
+  #     - IN: deploy-ecs-multi-env-prodparams
+  #     - IN: deploy-ecs-multi-env-betadeploy
+  #       switch: off
+  #     - IN: deploy-ecs-multi-env-prodcluster
