@@ -1,4 +1,9 @@
 resources:
+  
+  ######################################
+  # The image containing the application
+  ######################################
+
   - name: deploy-ecs-multi-env-image
     type: image
     flags:
@@ -9,7 +14,21 @@ resources:
     seed:
       versionName: "latest"
 
-  - name: deploy-ecs-multi-env-ecs-cluster
+
+  ############################
+  # clusters for parallel envs
+  ############################
+
+  - name: deploy-ecs-multi-env-blue
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+  - name: deploy-ecs-multi-env-green
     type: cluster
     flags:
       - deploy-ecs-multi-env
@@ -19,6 +38,33 @@ resources:
       region: "us-east-1"
 
 
+  ###########################
+  # clusters for serial envs
+  ###########################
+
+  - name: deploy-ecs-multi-env-beta
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+  - name: deploy-ecs-multi-env-prod
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+
+  ####################################
+  # Advanced options for multiple envs
+  ####################################
+
   - name: deploy-ecs-multi-env-prodopts
     type: dockerOptions
     flags:
@@ -26,7 +72,7 @@ resources:
     version:
       memory: 512
 
-  - name: deploy-ecs-multi-env-beta-opts
+  - name: deploy-ecs-multi-env-betaopts
     type: dockerOptions
     flags:
       - deploy-ecs-multi-env

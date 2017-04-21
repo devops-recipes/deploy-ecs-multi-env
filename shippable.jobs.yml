@@ -28,7 +28,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       - IN: deploy-ecs-multi-env-manifest-1
-      - IN: deploy-ecs-multi-env-ecs-cluster
+      - IN: deploy-ecs-multi-env-blue
 
   - name: deploy-ecs-multi-env-green
     type: deploy
@@ -36,7 +36,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       - IN: deploy-ecs-multi-env-manifest-1
-      - IN: deploy-ecs-multi-env-ecs-cluster
+      - IN: deploy-ecs-multi-env-green
 
 
   ########################################
@@ -57,7 +57,7 @@ jobs:
     steps:
       # - IN: deploy-ecs-multi-env-betaopts
       - IN: deploy-ecs-multi-env-manifest-2
-      - IN: deploy-ecs-multi-env-ecs-cluster
+      - IN: deploy-ecs-multi-env-beta
 
   - name: deploy-ecs-multi-env-prod
     type: deploy
@@ -66,4 +66,4 @@ jobs:
     steps:
       # - IN: deploy-ecs-multi-env-prodopts
       - IN: deploy-ecs-multi-env-beta
-      - IN: deploy-ecs-multi-env-ecs-cluster
+      - IN: deploy-ecs-multi-env-prod
