@@ -68,7 +68,7 @@ resources:
   - name: deploy-ecs-multi-env-prodopts
     type: dockerOptions
     flags:
-      - deploy-ecs-mutli-env
+      - deploy-ecs-multi-env
     version:
       memory: 512
 
