@@ -10,66 +10,66 @@ jobs:
   #   steps:
   #     - OUT: deploy-ecs-multi-env-image
 
-  ######################################
-  # Two parallel environments
-  ######################################
-
-  - name: deploy-ecs-multi-env-manifest-1
-    type: manifest
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      - IN: deploy-ecs-multi-env-image
-
-  - name: deploy-ecs-multi-env-bluedeploy
-    type: deploy
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      - IN: deploy-ecs-multi-env-blueparams
-      - IN: deploy-ecs-multi-env-manifest-1
-        switch: off
-      - IN: deploy-ecs-multi-env-maincluster
-
-  - name: deploy-ecs-multi-env-greendeploy
-    type: deploy
-    flags:
-      - deploy-ecs-multi-env
-    steps:
-      - IN: deploy-ecs-multi-env-greenparams
-      - IN: deploy-ecs-multi-env-manifest-1
-        switch: off
-      - IN: deploy-ecs-multi-env-maincluster
-
-
-  # ########################################
-  # # Two serial environments
-  # ########################################
+  # ######################################
+  # # Two parallel environments
+  # ######################################
   #
-  # - name: deploy-ecs-multi-env-manifest-2
+  # - name: deploy-ecs-multi-env-manifest-1
   #   type: manifest
   #   flags:
   #     - deploy-ecs-multi-env
   #   steps:
   #     - IN: deploy-ecs-multi-env-image
   #
-  # - name: deploy-ecs-multi-env-betadeploy
+  # - name: deploy-ecs-multi-env-bluedeploy
   #   type: deploy
   #   flags:
   #     - deploy-ecs-multi-env
   #   steps:
-  #     # - IN: deploy-ecs-multi-env-betaopts
-  #     - IN: deploy-ecs-multi-env-betaparams
-  #     - IN: deploy-ecs-multi-env-manifest-2
-  #     - IN: deploy-ecs-multi-env-betacluster
-  #
-  # - name: deploy-ecs-multi-env-proddeploy
-  #   type: deploy
-  #   flags:
-  #     - deploy-ecs-multi-env
-  #   steps:
-  #     # - IN: deploy-ecs-multi-env-prodopts
-  #     - IN: deploy-ecs-multi-env-prodparams
-  #     - IN: deploy-ecs-multi-env-betadeploy
+  #     - IN: deploy-ecs-multi-env-blueparams
+  #     - IN: deploy-ecs-multi-env-manifest-1
   #       switch: off
-  #     - IN: deploy-ecs-multi-env-prodcluster
+  #     - IN: deploy-ecs-multi-env-maincluster
+  #
+  # - name: deploy-ecs-multi-env-greendeploy
+  #   type: deploy
+  #   flags:
+  #     - deploy-ecs-multi-env
+  #   steps:
+  #     - IN: deploy-ecs-multi-env-greenparams
+  #     - IN: deploy-ecs-multi-env-manifest-1
+  #       switch: off
+  #     - IN: deploy-ecs-multi-env-maincluster
+
+
+  ########################################
+  # Two serial environments
+  ########################################
+
+  - name: deploy-ecs-multi-env-manifest-2
+    type: manifest
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-image
+
+  - name: deploy-ecs-multi-env-betadeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      # - IN: deploy-ecs-multi-env-betaopts
+      - IN: deploy-ecs-multi-env-betaparams
+      - IN: deploy-ecs-multi-env-manifest-2
+      - IN: deploy-ecs-multi-env-betacluster
+
+  - name: deploy-ecs-multi-env-proddeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      # - IN: deploy-ecs-multi-env-prodopts
+      - IN: deploy-ecs-multi-env-prodparams
+      - IN: deploy-ecs-multi-env-betadeploy
+        switch: off
+      - IN: deploy-ecs-multi-env-prodcluster
