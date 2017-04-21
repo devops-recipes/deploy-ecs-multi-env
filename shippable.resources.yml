@@ -55,6 +55,12 @@ resources:
   # Advanced options for multiple envs
   ####################################
 
+  - name: deploy-ecs-multi-env-commonparams
+    type: params
+    version:
+      params:
+        SLACK_TOKEN: "abc123"
+
   - name: deploy-ecs-multi-env-prodopts
     type: dockerOptions
     flags:
