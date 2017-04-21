@@ -22,7 +22,7 @@ jobs:
       - IN: deploy-ecs-multi-env-image
       - IN: deploy-ecs-multi-env-nginx
 
-  - name: deploy-ecs-multi-env-blue
+  - name: deploy-ecs-multi-env-bluedeploy
     type: deploy
     flags:
       - deploy-ecs-multi-env
@@ -30,7 +30,7 @@ jobs:
       - IN: deploy-ecs-multi-env-manifest-1
       - IN: deploy-ecs-multi-env-blue
 
-  - name: deploy-ecs-multi-env-green
+  - name: deploy-ecs-multi-env-greendeploy
     type: deploy
     flags:
       - deploy-ecs-multi-env
@@ -50,7 +50,7 @@ jobs:
     steps:
       - IN: deploy-ecs-multi-env-image
 
-  - name: deploy-ecs-multi-env-beta
+  - name: deploy-ecs-multi-env-betadeploy
     type: deploy
     flags:
       - deploy-ecs-multi-env
@@ -59,7 +59,7 @@ jobs:
       - IN: deploy-ecs-multi-env-manifest-2
       - IN: deploy-ecs-multi-env-beta
 
-  - name: deploy-ecs-multi-env-prod
+  - name: deploy-ecs-multi-env-proddeploy
     type: deploy
     flags:
       - deploy-ecs-multi-env

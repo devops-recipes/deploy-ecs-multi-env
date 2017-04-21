@@ -1,5 +1,5 @@
 resources:
-  
+
   ######################################
   # The image containing the application
   ######################################
@@ -19,7 +19,7 @@ resources:
   # clusters for parallel envs
   ############################
 
-  - name: deploy-ecs-multi-env-blue
+  - name: deploy-ecs-multi-env-bluecluster
     type: cluster
     flags:
       - deploy-ecs-multi-env
@@ -28,7 +28,7 @@ resources:
       sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
       region: "us-east-1"
 
-  - name: deploy-ecs-multi-env-green
+  - name: deploy-ecs-multi-env-greencluster
     type: cluster
     flags:
       - deploy-ecs-multi-env
@@ -42,7 +42,7 @@ resources:
   # clusters for serial envs
   ###########################
 
-  - name: deploy-ecs-multi-env-beta
+  - name: deploy-ecs-multi-env-betacluster
     type: cluster
     flags:
       - deploy-ecs-multi-env
@@ -51,7 +51,7 @@ resources:
       sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
       region: "us-east-1"
 
-  - name: deploy-ecs-multi-env-prod
+  - name: deploy-ecs-multi-env-prodcluster
     type: cluster
     flags:
       - deploy-ecs-multi-env
