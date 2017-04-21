@@ -26,18 +26,20 @@ jobs:
     flags:
       - deploy-ecs-multi-env
     steps:
+      - IN: deploy-ecs-multi-env-blueparams
       - IN: deploy-ecs-multi-env-manifest-1
         switch: off
-      - IN: deploy-ecs-multi-env-bluecluster
+      - IN: deploy-ecs-multi-env-maincluster
 
   - name: deploy-ecs-multi-env-greendeploy
     type: deploy
     flags:
       - deploy-ecs-multi-env
     steps:
+      - IN: deploy-ecs-multi-env-greenparams
       - IN: deploy-ecs-multi-env-manifest-1
         switch: off
-      - IN: deploy-ecs-multi-env-greencluster
+      - IN: deploy-ecs-multi-env-maincluster
 
 
   ########################################
@@ -57,6 +59,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       # - IN: deploy-ecs-multi-env-betaopts
+      - IN: deploy-ecs-multi-env-betaparams
       - IN: deploy-ecs-multi-env-manifest-2
       - IN: deploy-ecs-multi-env-betacluster
 
@@ -66,6 +69,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       # - IN: deploy-ecs-multi-env-prodopts
+      - IN: deploy-ecs-multi-env-prodparams
       - IN: deploy-ecs-multi-env-betadeploy
         switch: off
       - IN: deploy-ecs-multi-env-prodcluster
