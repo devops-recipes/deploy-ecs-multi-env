@@ -65,5 +65,5 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       # - IN: deploy-ecs-multi-env-prodopts
-      - IN: deploy-ecs-multi-env-beta
+      - IN: deploy-ecs-multi-env-betadeploy
       - IN: deploy-ecs-multi-env-prodcluster
