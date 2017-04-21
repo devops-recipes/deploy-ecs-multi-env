@@ -1,0 +1,34 @@
+resources:
+  - name: deploy-ecs-multi-env-image
+    type: image
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-ecr
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/deploy-ecs-multi-env"
+    seed:
+      versionName: "latest"
+
+  - name: deploy-ecs-multi-env-ecs-cluster
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+
+  - name: deploy-ecs-multi-env-prodopts
+    type: dockerOptions
+    flags:
+      - deploy-ecs-mutli-env
+    version:
+      memory: 512
+
+  - name: deploy-ecs-multi-env-beta-opts
+    type: dockerOptions
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      memory: 128
