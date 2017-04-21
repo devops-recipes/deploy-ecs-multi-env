@@ -16,10 +16,10 @@ resources:
 
 
   ############################
-  # clusters for parallel envs
+  # cluster for parallel envs
   ############################
 
-  - name: deploy-ecs-multi-env-bluecluster
+  - name: deploy-ecs-multi-env-maincluster
     type: cluster
     flags:
       - deploy-ecs-multi-env
@@ -27,16 +27,6 @@ resources:
     pointer:
       sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
       region: "us-east-1"
-
-  - name: deploy-ecs-multi-env-greencluster
-    type: cluster
-    flags:
-      - deploy-ecs-multi-env
-    integration: dr-aws
-    pointer:
-      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
-      region: "us-east-1"
-
 
   ###########################
   # clusters for serial envs
@@ -78,3 +68,36 @@ resources:
       - deploy-ecs-multi-env
     version:
       memory: 128
+
+  - name: deploy-ecs-multi-env-blueparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "blue"
+
+  - name: deploy-ecs-multi-env-greenparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "green"
+
+
+  - name: deploy-ecs-multi-env-betaparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "beta"
+
+  - name: deploy-ecs-multi-env-prodparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "prod"
