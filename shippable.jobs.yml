@@ -27,6 +27,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
       - IN: deploy-ecs-multi-env-bluecluster
 
   - name: deploy-ecs-multi-env-greendeploy
@@ -35,6 +36,7 @@ jobs:
       - deploy-ecs-multi-env
     steps:
       - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
       - IN: deploy-ecs-multi-env-greencluster
 
 
@@ -65,4 +67,5 @@ jobs:
     steps:
       # - IN: deploy-ecs-multi-env-prodopts
       - IN: deploy-ecs-multi-env-betadeploy
+        switch: off
       - IN: deploy-ecs-multi-env-prodcluster
