@@ -70,6 +70,8 @@ jobs:
     steps:
       # - IN: deploy-ecs-multi-env-prodopts
       - IN: deploy-ecs-multi-env-prodparams
+        switch: off
       - IN: deploy-ecs-multi-env-betadeploy
         switch: off
       - IN: deploy-ecs-multi-env-prodcluster
+        switch: off
