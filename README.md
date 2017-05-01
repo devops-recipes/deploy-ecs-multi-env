@@ -4,13 +4,12 @@
 
 ![AyeAye](https://github.com/devops-recipes/deploy-ecs-multi-env/blob/master/public/resources/images/captain.png)
 
-A simple Node JS application with unit tests and coverage reports using mocha
-and istanbul. It also does a docker build once CI posses and then pushes the image to docker hub
+A simple Node JS application with unit tests and coverage reports using mocha and istanbul. It also does a docker build once CI posses and then pushes the image to Amazon ECR.
 
 ## Run CI for this repo on Shippable
 * Fork this repo into your local repo
 * Login into the [Continuous Integration Service](wwww.shippable.com)
-* Create an [integration](http://docs.shippable.com/integrations/imageRegistries/ecr/) on shippable to your docker hub
+* Create an [integration](http://docs.shippable.com/integrations/imageRegistries/ecr/) on shippable to your Amazon ECR
 * All CI configuration is in `shippable.yml`
 * Follow these [CI Setup Instructions](http://docs.shippable.com/ci/runFirstBuild/) if you have never used Shippable CI Service
 * Update the integrationName in the integration.hub section if you used something other than `dr-ecr`
