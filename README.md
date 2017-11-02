@@ -9,10 +9,10 @@ A simple Node JS application with unit tests and coverage reports using mocha an
 ## Run CI for this repo on Shippable
 * Fork this repo into your local repo
 * Login into the [Continuous Integration Service](wwww.shippable.com)
-* Create an [integration](http://docs.shippable.com/integrations/imageRegistries/ecr/) on shippable to your Amazon ECR
+* Create an [integration](http://docs.shippable.com/platform/integration/aws-keys/) on shippable to your Amazon ECR
 * All CI configuration is in `shippable.yml`
 * Follow these [CI Setup Instructions](http://docs.shippable.com/ci/runFirstBuild/) if you have never used Shippable CI Service
-* Update the integrationName in the integration.hub section if you used something other than `dr-ecr`
+* Update the integrationName in the integration.hub section if you used something other than `dr-awskeys`
 * Change the ECR_REPO to point to your repo and aws account
 * You should be able to run a manual build or webhook build on commit
 
