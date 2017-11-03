@@ -8,7 +8,7 @@ resources:
     type: image
     flags:
       - deploy-ecs-multi-env
-    integration: dr-ecr
+    integration: dr-aws-keys
     pointer:
       sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/deploy-ecs-multi-env"
     seed:
