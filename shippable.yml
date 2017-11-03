@@ -45,3 +45,197 @@ integrations:
   hub:
     - integrationName: dr-aws-keys
       type: amazonKeys
+
+
+resources:
+
+  ######################################
+  # The image containing the application
+  ######################################
+
+  - name: deploy-ecs-multi-env-image
+    type: image
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws-keys
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/deploy-ecs-multi-env"
+    seed:
+      versionName: "latest"
+
+
+  ############################
+  # cluster for parallel envs
+  ############################
+
+  - name: deploy-ecs-multi-env-maincluster
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws-keys
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+  ###########################
+  # clusters for serial envs
+  ###########################
+
+  - name: deploy-ecs-multi-env-betacluster
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws-keys
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+  - name: deploy-ecs-multi-env-prodcluster
+    type: cluster
+    flags:
+      - deploy-ecs-multi-env
+    integration: dr-aws-keys
+    pointer:
+      sourceName : "deploy-ecs-basic" #name of the cluster to which we are deploying
+      region: "us-east-1"
+
+
+  ####################################
+  # Advanced options for multiple envs
+  ####################################
+
+  - name: deploy-ecs-multi-env-commonparams
+    type: params
+    version:
+      params:
+        SLACK_TOKEN: "abc123"
+
+  - name: deploy-ecs-multi-env-prodopts
+    type: dockerOptions
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      memory: 512
+
+  - name: deploy-ecs-multi-env-betaopts
+    type: dockerOptions
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      memory: 128
+
+  - name: deploy-ecs-multi-env-blueparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "blue"
+
+  - name: deploy-ecs-multi-env-greenparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "green"
+
+
+  - name: deploy-ecs-multi-env-betaparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "beta"
+        SLACK_CHANNEL: "beta"
+
+  - name: deploy-ecs-multi-env-prodparams
+    type: params
+    flags:
+      - deploy-ecs-multi-env
+    version:
+      params:
+        ENVIRONMENT: "prod"
+        SLACK_CHANNEL: "prod"
+
+
+jobs:
+
+  ###################################
+  # runCI job to update the image tag
+  ###################################
+  - name: deploy-ecs-multi-env_runCI
+    type: runCI
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - OUT: deploy-ecs-multi-env-image
+
+  ######################################
+  # Two parallel environments
+  ######################################
+
+  - name: deploy-ecs-multi-env-manifest-1
+    type: manifest
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-image
+
+  - name: deploy-ecs-multi-env-bluedeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-blueparams
+      - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
+      - IN: deploy-ecs-multi-env-maincluster
+
+  - name: deploy-ecs-multi-env-greendeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-greenparams
+      - IN: deploy-ecs-multi-env-manifest-1
+        switch: off
+      - IN: deploy-ecs-multi-env-maincluster
+
+
+  ########################################
+  # Two serial environments
+  ########################################
+
+  - name: deploy-ecs-multi-env-manifest-2
+    type: manifest
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-commonparams
+      - IN: deploy-ecs-multi-env-image
+
+  - name: deploy-ecs-multi-env-betadeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-betaopts
+      - IN: deploy-ecs-multi-env-betaparams
+      - IN: deploy-ecs-multi-env-manifest-2
+      - IN: deploy-ecs-multi-env-betacluster
+
+  - name: deploy-ecs-multi-env-proddeploy
+    type: deploy
+    flags:
+      - deploy-ecs-multi-env
+    steps:
+      - IN: deploy-ecs-multi-env-prodopts
+        switch: off
+      - IN: deploy-ecs-multi-env-prodparams
+        switch: off
+      - IN: deploy-ecs-multi-env-betadeploy
+        switch: off
+      - IN: deploy-ecs-multi-env-prodcluster
+        switch: off
